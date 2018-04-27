@@ -1,5 +1,6 @@
 # SocketCommunication_Linux
 
+
 Communication on web and used on Linux  
 git on Ubuntu
 
@@ -10,10 +11,10 @@ git on Ubuntu
 ### First
 
 You need these packages:mysql-server mysql-client libmysqlclient-dev  
-And you have to deploy your mysql.Use a database and create a table named 'users'.Then create a procedure with the code below:
+And you have to deploy your mysql.Use a database and create a table named 'users'.Then create a procedure with the code below:  
 delimiter /  
 CREATE PROCEDURE `login`(IN idin int unsigned,IN pw char(16),OUT n char(16),OUT bool char(1))  
-	begin  
+    begin  
 	select name into n from users where id=idin and password=pw;  
 	if n is null then set bool='n';  
 	else set bool='y';  
@@ -29,7 +30,8 @@ gcc makerserver -o makeserver
 ./makeserver  
 ./server  
 Then the server opened.
----
+
+
 
 ## To deploy client
 
