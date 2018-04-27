@@ -9,12 +9,51 @@ char isconnected='n';
 
 void connectSQL()
 {
+	char ptr[60]={'\0'};
+	char password[20]={'\0'};
+	char dbname[20]={'\0'};
+	int i,flag=0,j=0;
+	FILE *p=fopen("./mysql.conf","r");
+	if(p==NULL)
+	{
+		printf("Open mysql.conf failed\n");
+		return;
+	}
+	else
+	{
+		fread(ptr,sizeof(char),60,p);
+		i=0;
+		while(i<strlen(ptr))
+		{
+			if(flag==0)
+			{
+				if(ptr[i]!=' ')
+				{
+					password[j]=ptr[i];
+					j++;
+				}
+				else
+				{
+					flag=1;
+					j=0;
+					i++;
+					continue;
+				}
+			}
+			else
+			{
+				dbname[j]=ptr[i];
+				j++;
+			}
+			i++;
+		}
+	}
 	if(mysql_init(&mysql)==NULL)
 	{
 		printf("mysql_init(): %s\n", mysql_error(&mysql));  
 		return;
 	}
-	if(mysql_real_connect(&mysql,"localhost","root","jiang","mm",0,NULL,0)==NULL)
+	if(mysql_real_connect(&mysql,"localhost","root",password,dbname,0,NULL,0)==NULL)
 	{
         printf("mysql_real_connect(): %s\n", mysql_error(&mysql));  
 		return;
